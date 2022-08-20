@@ -146,7 +146,27 @@ body{
     font-weight: bold;
     text-align: center;
 }
-
+#scoreContainer .start{
+    position: absolute;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.5em;
+    width: 150px;
+    display: block;
+    top:170px;
+    left:267px;
+    margin: 25px auto;
+    border-radius: 5px;
+    border: 1px solid #000;
+    text-align: center;
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    transition: 100ms width ease-in;
+}
+#scoreContainer .start:hover{
+    width: 200px;
+}
 
 
 

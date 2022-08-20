@@ -94,8 +94,8 @@ function renderCounter() {
     count++;
   } else {
     count = 0;
-    //answer is wrong change progress bar color to red
-    answerIsWrong();
+    //no answer change progress bar color to yellow
+    noAnswer();
     if (runningQuestion < lastQuestion) {
       runningQuestion++;
       renderQuestion();
@@ -140,6 +140,11 @@ function answerIsWrong() {
   document.getElementById(runningQuestion).style.backgroundColor = "#f00";
 }
 
+//no answer
+function noAnswer() {
+  document.getElementById(runningQuestion).style.backgroundColor = "yellow";
+}
+
 //render score
 function renderScore() {
   scoreDiv.style.display = "block";
@@ -159,6 +164,9 @@ function renderScore() {
       ? "img/2.png"
       : "img/4.png";
 
-  scoreDiv.innerHTML = "<img src=" + img + ">";
-  scoreDiv.innerHTML += "<p>" + scorePercentage + "%</p>";
+  scoreDiv.innerHTML = `
+        <img src="${img}"</img>
+        <p>${scorePercentage}%</p>
+        <div class="start" onclick="location.reload()">Retake!</div>
+    `;
 }
