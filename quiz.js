@@ -9,7 +9,7 @@ const choiceC = document.getElementById("C");
 const counter = document.getElementById("counter");
 const timeGauge = document.getElementById("timeGauge");
 const progress = document.getElementById("progress");
-const scoreDiv = document.getElementById("score");
+const scoreDiv = document.getElementById("scoreContainer");
 
 //create questions
 let questions = [
@@ -140,4 +140,25 @@ function answerIsWrong() {
   document.getElementById(runningQuestion).style.backgroundColor = "#f00";
 }
 
+//render score
+function renderScore() {
+  scoreDiv.style.display = "block";
 
+  //calculate the amount of questions answered in percentage
+  const scorePercentage = Math.round((100 * score) / questions.length);
+
+  //choose the image based on the score
+  let img =
+    scorePercentage >= 80
+      ? "img/5.png"
+      : scorePercentage >= 60
+      ? "img/4.png"
+      : scorePercentage >= 40
+      ? "img/3.png"
+      : scorePercentage >= 20
+      ? "img/2.png"
+      : "img/4.png";
+
+  scoreDiv.innerHTML = "<img src=" + img + ">";
+  scoreDiv.innerHTML += "<p>" + scorePercentage + "%</p>";
+}
