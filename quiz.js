@@ -50,21 +50,31 @@ let questions = [
 //variables
 const lastQuestion = questions.length - 1;
 let runningQuestion = 0;
+let count = 0;
+let questionTime = 10; //10 seconds
+const gaugeWidth = 150; //150px
+const gaugeUnit = gaugeWidth / questionTime;
+let TIMER;
 
 //render a question
-function renderQuestion(){
-    let q = questions[runningQuestion];
-    question.innerHTML = "<p>"+q.question+"</p>";
-    qImg.innerHTML = "<img src="+q.imgSrc+">";
-    choiceA.innerHTML = q.choiceA;
-    choiceB.innerHTML = q.choiceB;
-    choiceC.innerHTML = q.choiceC;
+function renderQuestion() {
+  let q = questions[runningQuestion];
+  question.innerHTML = "<p>" + q.question + "</p>";
+  qImg.innerHTML = "<img src=" + q.imgSrc + ">";
+  choiceA.innerHTML = q.choiceA;
+  choiceB.innerHTML = q.choiceB;
+  choiceC.innerHTML = q.choiceC;
 }
 
-start.style.display = "none";
-renderQuestion();
-quiz.style.display = "block";
-renderProgress();
+//start quiz
+function startQuiz() {
+  start.style.display = "none";
+  renderQuestion();
+  quiz.style.display = "block";
+  renderProgress();
+  renderCounter();
+  TIMER = setInterval(renderCounter, 1000); // 1 second
+}
 
 //render progress
 function renderProgress() {
@@ -72,3 +82,16 @@ function renderProgress() {
     progress.innerHTML += "<div class='prog' id=" + i + "></div>";
   }
 }
+
+//Counter render
+function renderCounter() {
+  if (count <= questionTime) {
+    counter.innerHTML = count;
+    timeGauge.style.width = count * gaugeUnit + "px";
+    count++;
+  } else {
+    count = 0;
+  }
+}
+
+startQuiz();
