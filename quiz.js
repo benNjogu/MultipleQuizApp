@@ -64,3 +64,11 @@ function renderQuestion(){
 start.style.display = "none";
 renderQuestion();
 quiz.style.display = "block";
+renderProgress();
+
+//render progress
+function renderProgress() {
+  for (let i = 0; i <= lastQuestion; i++) {
+    progress.innerHTML += "<div class='prog' id=" + i + "></div>";
+  }
+}
