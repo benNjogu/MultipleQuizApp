@@ -9,7 +9,7 @@ const choiceC = document.getElementById("C");
 const counter = document.getElementById("counter");
 const timeGauge = document.getElementById("timeGauge");
 const progress = document.getElementById("progress");
-const score = document.getElementById("score");
+const scoreDiv = document.getElementById("score");
 
 //create questions
 let questions = [
@@ -55,6 +55,7 @@ let questionTime = 10; //10 seconds
 const gaugeWidth = 150; //150px
 const gaugeUnit = gaugeWidth / questionTime;
 let TIMER;
+let score = 0;
 
 //render a question
 function renderQuestion() {
@@ -65,6 +66,8 @@ function renderQuestion() {
   choiceB.innerHTML = q.choiceB;
   choiceC.innerHTML = q.choiceC;
 }
+
+start.addEventListener("click", startQuiz);
 
 //start quiz
 function startQuiz() {
@@ -91,7 +94,50 @@ function renderCounter() {
     count++;
   } else {
     count = 0;
+    //answer is wrong change progress bar color to red
+    answerIsWrong();
+    if (runningQuestion < lastQuestion) {
+      runningQuestion++;
+      renderQuestion();
+    } else {
+      //end score and show results to the user
+      clearInterval(TIMER);
+      renderScore();
+    }
   }
 }
 
-startQuiz();
+//cneck answer
+function checkAnswer(answer) {
+  if (answer == questions[runningQuestion].correct) {
+    //answer is correct
+    score++;
+    //change progress bar color to green
+    answerIsCorrect();
+  } else {
+    //answer is wrong change progress bar color to red
+    answerIsWrong();
+  }
+
+  count = 0;
+  if (runningQuestion < lastQuestion) {
+    runningQuestion++;
+    renderQuestion();
+  } else {
+    //end score and show results to the user
+    clearInterval(TIMER);
+    renderScore();
+  }
+}
+
+//correct answer
+function answerIsCorrect() {
+  document.getElementById(runningQuestion).style.backgroundColor = "#0f0";
+}
+
+//wrong answer
+function answerIsWrong() {
+  document.getElementById(runningQuestion).style.backgroundColor = "#f00";
+}
+
+
